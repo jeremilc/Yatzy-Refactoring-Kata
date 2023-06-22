@@ -1,3 +1,7 @@
+import { ChanceCategory } from './ChanceCategory';
+import { Dices } from './Dices';
+import { YatzyCategory } from './YatzyCategory';
+
 export default class Yatzy {
   private dice: number[];
 
@@ -11,23 +15,11 @@ export default class Yatzy {
   }
 
   static chance(d1: number, d2: number, d3: number, d4: number, d5: number): number {
-    var total = 0;
-    total += d1;
-    total += d2;
-    total += d3;
-    total += d4;
-    total += d5;
-    return total;
+    return ChanceCategory.validate(new Dices(d1, d2, d3, d4, d5))
   }
 
   static yatzy(...args: number[]): number {
-    var counts = [0, 0, 0, 0, 0, 0, 0, 0];
-    for (var i = 0; i != args.length; ++i) {
-      var die = args[i];
-      counts[die - 1]++;
-    }
-    for (i = 0; i != 6; i++) if (counts[i] == 5) return 50;
-    return 0;
+    return YatzyCategory.validate(new Dices(args[0], args[1], args[2], args[3], args[4]))
   }
 
   static ones(d1: number, d2: number, d3: number, d4: number, d5: number): number {
